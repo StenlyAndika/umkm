@@ -15,17 +15,6 @@ class DashboardUser extends Controller
      */
     public function index()
     {
-        $poli = [
-            "PENDAFTARAN",
-            "UMUM",
-            "GIGI",
-            "MTBS",
-            "KIA/KB",
-            "GIZI",
-            "P2M",
-            "PKPR",
-            "APOTIK"
-        ];
         return view('dashboard.user.index', [
             'title' => 'Data User',
             'user' => User::orderBy('is_root', 'desc')->get(),
@@ -51,19 +40,7 @@ class DashboardUser extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'username' => 'required|unique:user',
-            'poli' => 'required',
-            'password' => 'required'
-        ];
-
-        $validatedData = $request->validate($rules);
-
-        $validatedData['password'] = bcrypt($validatedData['password']);
-
-        User::create($validatedData);
-
-        return redirect()->route('admin.user.index')->with('toast_success', 'Data berhasil ditambah!');
+        //
     }
 
     /**
@@ -125,68 +102,6 @@ class DashboardUser extends Controller
         } else {
             return redirect()->route('admin.dashboard')->with('toast_success', 'Data berhasil diupdate!');
         }
-    }
-
-    public function updateroot(Request $request, User $user)
-    {
-        $rules = [
-            'password' => 'required'
-        ];
-
-        if ($request->username != $user->username) {
-            $rules['username'] = 'required|unique:user';
-        }
-
-        $validatedData = $request->validate($rules);
-
-        if($validatedData['password'] != $user->password) {
-            $validatedData['password'] = bcrypt($validatedData['password']);
-        }
-        
-        User::where('id', $user->id)->update($validatedData);
-
-        return redirect()->route('admin.user.index')->with('toast_success', 'Data berhasil diupdate!');
-    }
-
-    public function set_admin(User $user)
-    {
-        if($user->is_admin == 1) {
-            $data = [
-                'is_admin' => '0',
-            ];
-        } else {
-            $data = [
-                'is_admin' => '1',
-            ];
-        }
-    
-        User::where('id', $user->id)->update($data);
-
-        return redirect()->route('admin.user.index')->with('toast_success', 'Data berhasil diupdate!');
-    }
-
-    public function set_root(User $user)
-    {
-        $tdata = User::where('is_root', '1')->count();
-        if($user->is_root == 1) {
-            $data = [
-                'is_root' => '0',
-            ];
-            if($tdata <= 1) {
-                return redirect()->route('admin.user.index')->with('toast_info', 'Super Admin tidak boleh kosong!');
-            } else {
-                User::where('id', $user->id)->update($data);
-                return redirect()->route('admin.user.index')->with('toast_success', 'Data berhasil diupdate!');
-            }
-        } else {
-            $data = [
-                'is_root' => '1',
-                'poli' => 'SUPER ADMIN'
-            ];
-            User::where('id', $user->id)->update($data);
-            return redirect()->route('admin.user.index')->with('toast_success', 'Data berhasil diupdate!');
-        }
-
     }
 
     /**
