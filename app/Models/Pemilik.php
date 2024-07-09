@@ -10,7 +10,7 @@ class Pemilik extends Model
 {
     use HasFactory;
     protected $table = 'pemilik';
-    protected $fillable = ['nik, nama, tempat_lahir, tgl_lahir, jekel, alamat, umur, jabatan'];
+    protected $fillable = ['nik', 'nama', 'tempat_lahir', 'tgl_lahir', 'jekel', 'alamat', 'umur', 'jabatan'];
     protected $primaryKey = 'nik';
     public $timestamps = false;
 }

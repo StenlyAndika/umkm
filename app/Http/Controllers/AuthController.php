@@ -19,14 +19,14 @@ class AuthController extends Controller
 
     public function daftar() {
         $bidang_usaha = [
-            "Dagang",
-            "Jasa",
-            "Industri"
+            "4",
+            "5",
+            "6"
         ];
         $kelas_usaha = [
-            "Mikro",
-            "Kecil",
-            "Makro"
+            "1",
+            "2",
+            "3"
         ];
         $sektor_usaha = [
             "Menjual Cabe dan Bumbu Masak",
@@ -42,38 +42,25 @@ class AuthController extends Controller
     }
 
     public function register(Request $request) {
-        // $rulesukm = [
-        //     'nik' => 'required',
-        //     'id_bdng_ush' => 'required',
-        //     'id_kls_ush' => 'required',
-        //     'nm_pemilik' => 'required',
-        //     'nm_perusahaan' => 'required',
-        //     'deskripsi' => 'required',
-        //     'no_npwp' => 'required',
-        //     'sektor_usaha' => 'required',
-        //     'almt_usaha' => 'required',
-        //     'jml_tng_krj' => 'required',
-        //     'aset' => 'required',
-        //     'omset' => 'required'
-        // ];
+        $rulesukm = [
+            'nik' => 'required',
+            'id_bdng_ush' => 'required',
+            'id_kls_ush' => 'required',
+            'nm_perusahaan' => 'required',
+            'deskripsi' => 'required',
+            'no_npwp' => 'required',
+            'sektor_usaha' => 'required',
+            'almt_usaha' => 'required',
+            'jml_tng_krj' => 'required',
+            'aset' => 'required',
+            'omset' => 'required'
+        ];
         
-        // $validatedDataUkm = $request->validate($rulesukm);
+        $validatedDataUkm = $request->validate($rulesukm);
 
-        // $validatedDataUkm['nik'] = $request->nik;
-        // $validatedDataUkm['id_bdng_ush'] = $request->id_bdng_ush;
-        // $validatedDataUkm['id_kls_ush'] = $request->id_kls_ush;
-        // $validatedDataUkm['nm_pemilik'] = $request->nm_pemilik;
-        // $validatedDataUkm['nm_perusahaan'] = $request->nm_perusahaan;
-        // $validatedDataUkm['deskripsi'] = $request->deskripsi;
-        // $validatedDataUkm['no_npwp'] = $request->no_npwp;
-        // $validatedDataUkm['sektor_usaha'] = $request->sektor_usaha;
-        // $validatedDataUkm['almt_usaha'] = $request->almt_usaha;
-        // $validatedDataUkm['jml_tng_krj'] = $request->jml_tng_krj;
-        // $validatedDataUkm['aset'] = $request->aset;
-        // $validatedDataUkm['omset'] = $request->omset;
-        // $validatedDataUkm['status'] = '0';
+        $validatedDataUkm['status'] = '0';
 
-        // Ukm::create($validatedDataUkm);
+        Ukm::create($validatedDataUkm);
 
         $rulespemilik = [
             'nik' => 'required',
@@ -88,30 +75,19 @@ class AuthController extends Controller
         
         $validatedDataPemilik = $request->validate($rulespemilik);
 
-        $validatedDataPemilik['nik'] = $request->nik;
-        $validatedDataPemilik['nama'] = $request->nama;
-        $validatedDataPemilik['tempat_lahir'] = $request->tempat_lahir;
-        $validatedDataPemilik['tgl_lahir'] = $request->tgl_lahir;
-        $validatedDataPemilik['jekel'] = $request->jekel;
-        $validatedDataPemilik['alamat'] = $request->alamat;
-        $validatedDataPemilik['umur'] = $request->umur;
-        $validatedDataPemilik['jabatan'] = $request->jabatan;
-
         Pemilik::create($validatedDataPemilik);
 
-        // $rules = [
-        //     'username' => 'required',
-        //     'nik' => 'required',
-        //     'password' => 'required'
-        // ];
+        $rules = [
+            'username' => 'required',
+            'nik' => 'required',
+            'password' => 'required'
+        ];
         
-        // $validatedData = $request->validate($rules);
+        $validatedData = $request->validate($rules);
 
-        // $validatedData['nik'] = $request->nik;
-        // $validatedData['username'] = $request->username;
-        // $validatedData['password'] = bcrypt($validatedData['password']);
+        $validatedData['password'] = bcrypt($validatedData['password']);
 
-        // User::create($validatedData);
+        User::create($validatedData);
 
         return redirect()->route('welcome')->with('toast_success', 'Berhasil mendaftar!');
     }

@@ -13,7 +13,7 @@
                                 <h3 class="text-center">UMKM Kota Sungai Penuh</h3>
                                 <form method="post" action="{{ route('register') }}">
                                     @csrf
-                                    {{-- <hr>
+                                    <hr>
                                     <h3>Data Usaha</h3>
                                     <hr>
                                     <div class="mb-3">
@@ -71,7 +71,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">Omset</label>
                                         <input type="text" class="form-control" name="omset">
-                                    </div> --}}
+                                    </div>
                                     <hr>
                                     <h3>Data Pemilik Usaha</h3>
                                     <hr>
@@ -106,6 +106,13 @@
                                     <div class="mb-3">
                                         <label class="form-label">Umur</label>
                                         <input type="text" class="form-control" name="umur">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Jabatan</label>
+                                        <select class="select2-bootstrap4 form-control bg-light fs-6" name="jabatan">
+                                            <option value="0" selected>Pilih</option>
+                                            <option value="Onde Onde">Onde Onde</option>
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Username</label>
