@@ -24,7 +24,8 @@ use App\Http\Controllers\DashboardPendaftaran;
 |
 */
 
-Route::get('/', [AuthController::class, 'index'])->name('welcome')->middleware('guest');
+Route::get('/', [HomeController::class, 'index'])->name('welcome')->middleware('guest');
+Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::get('/daftar', [AuthController::class, 'daftar'])->name('daftar')->middleware('guest');
 Route::get('/daftaradmin', [AuthController::class, 'daftaradmin'])->name('daftaradmin')->middleware('guest');
 
