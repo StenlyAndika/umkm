@@ -6,13 +6,13 @@
             <h5 class="mt-2">Ubah Data</h5>
         </div>
         <div class="card-body">          
-            <form method="post" action="{{ route('admin.dokter.update', $dokter->idd) }}" autocomplete="off">
+            <form method="post" action="{{ route('admin.kelas_usaha.update', $kelas_usaha->id_kls_ush) }}" autocomplete="off">
                 @method('put')
                 @csrf
                 <div class="form-floating mb-1">
-                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="nama" value="{{ $dokter->nama }}">
-                    <label for="nama">Nama</label>
-                    @error('nama')
+                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="nama" value="{{ $kelas_usaha->nama }}">
+                    <label for="nama">Kelas</label>
+                    @error('kelas')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -21,7 +21,7 @@
                 <hr>
                 <div class="form-group">
                     <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
-                    <a class="btn btn-sm btn-secondary" href="{{ route('admin.dokter.index') }}">Batal</a>
+                    <a class="btn btn-sm btn-secondary" href="{{ route('admin.kelas_usaha.index') }}">Batal</a>
                 </div>
                 <hr>
             </form>

@@ -30,7 +30,7 @@
                                         <select class="select2-bootstrap4 form-control bg-light fs-6" name="id_bdng_ush">
                                             <option value="0" selected>Pilih</option>
                                             @foreach ($bidang_usaha as $item)
-                                                <option value="{{ $item }}">{{ $item }}</option>
+                                                <option value="{{ $item->id_bdng_ush }}">{{ $item->nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -39,18 +39,13 @@
                                         <select class="select2-bootstrap4 form-control bg-light fs-6" name="id_kls_ush">
                                             <option value="0" selected>Pilih</option>
                                             @foreach ($kelas_usaha as $item)
-                                                <option value="{{ $item }}">{{ $item }}</option>
+                                                <option value="{{ $item->id_kls_ush }}">{{ $item->nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Sektor Usaha</label>
-                                        <select class="select2-bootstrap4 form-control bg-light fs-6" name="sektor_usaha">
-                                            <option value="0" selected>Pilih</option>
-                                            @foreach ($sektor_usaha as $item)
-                                                <option value="{{ $item }}">{{ $item }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" name="sektor_usaha">
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label">NPWP</label>

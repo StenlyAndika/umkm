@@ -6,11 +6,11 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Dokter extends Model
+class KelasUsaha extends Model
 {
     use HasFactory;
-    protected $table = 'dokter';
-    protected $guarded = ['idd'];
-    protected $primaryKey = 'idd';
+    protected $table = 'kelas_usaha';
+    protected $guarded = ['id_kls_ush'];
+    protected $primaryKey = 'id_kls_ush';
     public $timestamps = false;
 }

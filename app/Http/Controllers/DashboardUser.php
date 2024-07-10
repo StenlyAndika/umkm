@@ -17,8 +17,7 @@ class DashboardUser extends Controller
     {
         return view('dashboard.user.index', [
             'title' => 'Data User',
-            'user' => User::orderBy('is_root', 'desc')->get(),
-            'poli' => $poli
+            'user' => User::where('is_super', '0')->get()
         ]);
     }
 
@@ -97,11 +96,33 @@ class DashboardUser extends Controller
         }
         
         User::where('id', $user->id)->update($validatedData);
-        if($user->is_root) {
+        if($user->is_super) {
             return redirect()->route('admin.user.index')->with('toast_success', 'Data berhasil diupdate!');
         } else {
             return redirect()->route('admin.dashboard')->with('toast_success', 'Data berhasil diupdate!');
         }
+    }
+
+    public function updateverif(Request $request, User $user)
+    {
+        $data = [
+            'is_verified' => '1',
+        ];
+    
+        User::where('id', $user->id)->update($data);
+
+        return redirect()->route('admin.ukm.index')->with('toast_success', 'UKM Berhasil Diverifikasi!');
+    }
+
+    public function updatereject(Request $request, User $user)
+    {
+        $data = [
+            'is_verified' => '2',
+        ];
+    
+        User::where('id', $user->id)->update($data);
+
+        return redirect()->route('admin.ukm.index')->with('toast_success', 'UKM Berhasil Diverifikasi!');
     }
 
     /**

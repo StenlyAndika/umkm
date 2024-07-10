@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
-class IsAdmin
+class IsVerified
 {
     /**
      * Handle an incoming request.
@@ -17,8 +16,8 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->check() || !auth()->user()->is_admin) {
-            return redirect()->route('welcome');
+        if(!auth()->check() || !auth()->user()->is_verified) {
+            abort(404, 'Not Found.');
         }
         return $next($request);
     }

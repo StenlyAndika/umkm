@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\Ukm;
 use App\Models\User;
 use App\Models\Pemilik;
+use App\Models\KelasUsaha;
+use App\Models\BidangUsaha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,27 +19,35 @@ class AuthController extends Controller
         ]);
     }
 
+    public function daftaradmin() {
+        return view('auth.daftaradmin', [
+            'title' => 'UMKM | Daftar Super Admin',
+        ]);
+    }
+
+    public function regadmin(Request $request) {
+        $rules = [
+            'username' => 'required',
+            'nik' => 'required',
+            'password' => 'required'
+        ];
+        
+        $validatedData = $request->validate($rules);
+
+        $validatedData['password'] = bcrypt($validatedData['password']);
+        $validatedData['is_super'] = '1';
+        $validatedData['is_verified'] = '1';
+
+        User::create($validatedData);
+
+        return redirect()->route('welcome')->with('toast_success', 'Berhasil mendaftar!');
+    }
+
     public function daftar() {
-        $bidang_usaha = [
-            "4",
-            "5",
-            "6"
-        ];
-        $kelas_usaha = [
-            "1",
-            "2",
-            "3"
-        ];
-        $sektor_usaha = [
-            "Menjual Cabe dan Bumbu Masak",
-            "Bengkel Honda",
-            "Usaha Barang Bekas"
-        ];
         return view('auth.daftar', [
             'title' => 'UMKM | Daftar',
-            'bidang_usaha' => $bidang_usaha,
-            'kelas_usaha' => $kelas_usaha,
-            'sektor_usaha' => $sektor_usaha
+            'bidang_usaha' => BidangUsaha::all(),
+            'kelas_usaha' => KelasUsaha::all()
         ]);
     }
 
@@ -57,8 +67,6 @@ class AuthController extends Controller
         ];
         
         $validatedDataUkm = $request->validate($rulesukm);
-
-        $validatedDataUkm['status'] = '0';
 
         Ukm::create($validatedDataUkm);
 
@@ -107,9 +115,15 @@ class AuthController extends Controller
         ]);
 
         if(Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('/dashboard')->with('toast_success', 'Login Berhasil<br>Selamat Datang '.ucfirst(auth()->user()->username));
+            if(auth()->user()->is_verified == "1") {
+                $request->session()->regenerate();
+                return redirect()->intended('/dashboard')->with('toast_success', 'Login Berhasil<br>Selamat Datang '.ucfirst(auth()->user()->username));
+            } else {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('welcome')->with('toast_error', 'Login gagal, UKM belum terdaftar atau diverifikasi');
+            }
         }
 
         return back()->with('loginError', 'Login Gagal, Username atau Password salah!');

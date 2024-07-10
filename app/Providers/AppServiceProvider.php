@@ -36,8 +36,12 @@ class AppServiceProvider extends ServiceProvider
             return $user->is_admin;
         });
 
-        Gate::define('root', function(User $user) {
-            return $user->is_root;
+        Gate::define('super', function(User $user) {
+            return $user->is_super;
+        });
+
+        Gate::define('verified', function(User $user) {
+            return $user->is_verified;
         });
 
     }
