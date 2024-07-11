@@ -138,6 +138,25 @@
                 });
             });
 
+            $(".hapusUser").click(function (event) {
+                var form =  $(this).closest("form");
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Hapus user?',
+                    html: "Data user akan dihapus!",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#004A99',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Hapus',
+                    cancelButtonText: 'Batalkan'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+
         });
     </script>
 

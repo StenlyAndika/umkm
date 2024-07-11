@@ -18,7 +18,9 @@ class DashboardProduk extends Controller
     {
         return view('dashboard.produk.index', [
             'title' => 'Produk',
-            'produk' => Produk::all(),
+            'produk' => Produk::join('ukm', 'ukm.id_ukm', 'produk.id_ukm')
+                        ->where('ukm.nik', auth()->user()->nik)
+                        ->get(),
             'ukm' => Ukm::where('nik', auth()->user()->nik)->first()
         ]);
     }

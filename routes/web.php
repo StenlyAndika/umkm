@@ -25,6 +25,7 @@ use App\Http\Controllers\DashboardPendaftaran;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome')->middleware('guest');
+Route::get('/detail/{produk}', [HomeController::class, 'detail'])->name('home.detail')->middleware('guest');
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::get('/daftar', [AuthController::class, 'daftar'])->name('daftar')->middleware('guest');
 Route::get('/daftaradmin', [AuthController::class, 'daftaradmin'])->name('daftaradmin')->middleware('guest');
@@ -53,6 +54,14 @@ Route::middleware(['admin'])->group(function () {
 
     Route::middleware(['super'])->group(function () {
         Route::get('/admin/ukm', [DashboardUkm::class, 'index'])->name('admin.ukm.index');
+
+        Route::get('/admin/master/event', [DashboardEvent::class, 'index'])->name('admin.event.index');
+        Route::get('/admin/master/event/create', [DashboardEvent::class, 'create'])->name('admin.event.create');
+        Route::post('/admin/master/event', [DashboardEvent::class, 'store'])->name('admin.event.store');
+        Route::get('/admin/master/event/{event}', [DashboardEvent::class, 'show'])->name('admin.event.show');
+        Route::get('/admin/master/event/{event}/edit', [DashboardEvent::class, 'edit'])->name('admin.event.edit');
+        Route::put('/admin/master/event/{event}', [DashboardEvent::class, 'update'])->name('admin.event.update');
+        Route::delete('/admin/master/event/{event}', [DashboardEvent::class, 'destroy'])->name('admin.event.destroy');
 
         Route::get('/admin/master/bidang_usaha', [DashboardBidangUsaha::class, 'index'])->name('admin.bidang_usaha.index');
         Route::get('/admin/master/bidang_usaha/create', [DashboardBidangUsaha::class, 'create'])->name('admin.bidang_usaha.create');

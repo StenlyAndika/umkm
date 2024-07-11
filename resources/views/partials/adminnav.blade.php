@@ -56,6 +56,14 @@
                             <span class="hide-menu">Data UKM</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.event.index') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bx-data'></i>
+                            </span>
+                            <span class="hide-menu">Data Event</span>
+                        </a>
+                    </li>
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Data Master</span>

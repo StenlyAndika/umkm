@@ -1,47 +1,46 @@
 @extends('layout.admin')
 
 @section('container')
-    <div class="card radius-10 full-height">
-        <div class="card-header">
-            <h5 class="mt-2">Data Produk</h5>
-        </div>
-        <div class="card-header mt-2 border-start border-0 border-4 border-danger">
-            <h5 class="mt-2">Data Produk</h5>
-            <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#tambahProduk">
-                Data Baru
-            </button>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped datatable">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center;">#</th>
-                            <th style="text-align: left;">Nama Produk</th>
-                            <th style="text-align: left;">Harga</th>
-                            <th style="text-align: left;">Photo</th>
-                            <th style="text-align: center;">Opsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($produk as $row)
-                        <tr>
-                            <td style="text-align: center;">{{ $loop->iteration }}</td>
-                            <td style="text-align: left;">{{ $row->nm_prdk }}</td>
-                            <td style="text-align: left;">{{ $row->harga }}</td>
-                            <td style="text-align: left;"><img src="{{ asset('storage/'.$row->photo) }}" alt="" width="100"></td>
-                            <td style="text-align: center;">
-                                <a href="{{ route('admin.produk.edit', $row->id_produk) }}" class="btn btn-sm btn-primary">Ubah</a>
-                                <form action="{{ route('admin.produk.destroy', $row->id_produk) }}" method="post" class="d-inline">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-danger hapusProduk">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header border-start border-0 border-4 border-danger">
+                <h5 class="mt-2">Data Produk</h5>
+                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#tambahProduk">
+                    Data Baru
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped datatable">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">#</th>
+                                <th style="text-align: left;">Nama Produk</th>
+                                <th style="text-align: left;">Harga</th>
+                                <th style="text-align: left;">Photo</th>
+                                <th style="text-align: center;">Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($produk as $row)
+                            <tr>
+                                <td style="text-align: center;">{{ $loop->iteration }}</td>
+                                <td style="text-align: left;">{{ $row->nm_prdk }}</td>
+                                <td style="text-align: left;">{{ $row->harga }}</td>
+                                <td style="text-align: left;"><img src="{{ asset('storage/'.$row->photo) }}" alt="" width="100"></td>
+                                <td style="text-align: center;">
+                                    <a href="{{ route('admin.produk.edit', $row->id_produk) }}" class="btn btn-sm btn-primary">Ubah</a>
+                                    <form action="{{ route('admin.produk.destroy', $row->id_produk) }}" method="post" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-danger hapusProduk">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

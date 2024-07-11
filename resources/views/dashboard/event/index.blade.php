@@ -4,8 +4,8 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header border-start border-0 border-4 border-danger">
-                <h5 class="mt-2">Data Kelas Usaha</h5>
-                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#tambahKelas">
+                <h5 class="mt-2">Data Event</h5>
+                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#tambahEvent">
                     Data Baru
                 </button>
             </div>
@@ -15,18 +15,20 @@
                         <thead>
                             <tr>
                                 <th style="text-align: center;">#</th>
-                                <th style="text-align: left;">Kelas</th>
+                                <th style="text-align: left;">Judul</th>
+                                <th style="text-align: left;">Deskripsi</th>
                                 <th style="text-align: center;">Opsi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kelas_usaha as $row)
+                            @foreach ($event as $row)
                             <tr>
                                 <td style="text-align: center;">{{ $loop->iteration }}</td>
-                                <td style="text-align: left;">{{ $row->nama }}</td>
+                                <td style="text-align: center;">{{ $row->judul }}</td>
+                                <td style="text-align: left;">{!! $row->deskripsi !!}</td>
                                 <td style="text-align: center;">
-                                    <a href="{{ route('admin.kelas_usaha.edit', $row->id_kls_ush) }}" class="btn btn-sm btn-primary">Ubah</a>
-                                    <form action="{{ route('admin.kelas_usaha.destroy', $row->id_kls_ush) }}" method="post" class="d-inline">
+                                    <a href="{{ route('admin.event.edit', $row->id) }}" class="btn btn-sm btn-primary">Ubah</a>
+                                    <form action="{{ route('admin.event.destroy', $row->id) }}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-danger hapusDataM">Hapus</button>
@@ -40,24 +42,24 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="tambahKelas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hid_kls_ushen="true">
+    <div class="modal fade" id="tambahEvent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hiden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Data Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" action="{{ route('admin.kelas_usaha.store') }}" autocomplete="off">
+                <form method="post" action="{{ route('admin.event.store') }}" autocomplete="off">
                     @csrf
                     <div class="modal-body">
-                        <div class="form-floating mb-1">
-                            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="nama" value="{{ old('nama') }}">
-                            <label for="nama">Kelas Usaha</label>
-                            @error('kelas')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                        <div class="mb-1">
+                            <label class="form-label">Judul Event</label>
+                            <input type="text" class="form-control" name="judul" value="">
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label">Deskripsi Event</label>
+                            <input type="hidden" id="deskripsi" name="deskripsi">
+                            <trix-editor input="deskripsi"></trix-editor>
                         </div>
                     </div>
                     <div class="modal-footer">

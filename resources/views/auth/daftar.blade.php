@@ -106,7 +106,7 @@
                                         <label class="form-label">Jabatan</label>
                                         <select class="select2-bootstrap4 form-control bg-light fs-6" name="jabatan">
                                             <option value="0" selected>Pilih</option>
-                                            <option value="Onde Onde">Onde Onde</option>
+                                            <option value="Administrator">Administrator</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
@@ -120,7 +120,7 @@
                                     <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" type="submit">Daftar</button>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="fs-4 mb-0 fw-bold">Sudah punya akun?</p>
-                                        <a class="text-primary fw-bold ms-2" href="{{ route('welcome') }}">Login disini</a>
+                                        <a class="text-primary fw-bold ms-2" href="{{ route('login') }}">Login disini</a>
                                     </div>
                                 </form>
                             </div>

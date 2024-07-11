@@ -1,43 +1,42 @@
 @extends('layout.admin')
 
 @section('container')
-    <div class="card radius-10 full-height">
-        <div class="card-header">
-            <h5 class="mt-2">Data Bidang Usaha</h5>
-        </div>
-        <div class="card-header mt-2 border-start border-0 border-4 border-danger">
-            <h5 class="mt-2">Data Bidang Usaha</h5>
-            <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#tambahBidang">
-                Data Baru
-            </button>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped datatable">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center;">#</th>
-                            <th style="text-align: left;">Nama</th>
-                            <th style="text-align: center;">Opsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($bidang_usaha as $row)
-                        <tr>
-                            <td style="text-align: center;">{{ $loop->iteration }}</td>
-                            <td style="text-align: left;">{{ $row->nama }}</td>
-                            <td style="text-align: center;">
-                                <a href="{{ route('admin.bidang_usaha.edit', $row->id_bdng_ush) }}" class="btn btn-sm btn-primary">Ubah</a>
-                                <form action="{{ route('admin.bidang_usaha.destroy', $row->id_bdng_ush) }}" method="post" class="d-inline">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-danger hapusDataM">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header border-start border-0 border-4 border-danger">
+                <h5 class="mt-2">Data Bidang Usaha</h5>
+                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#tambahBidang">
+                    Data Baru
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped datatable">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">#</th>
+                                <th style="text-align: left;">Nama</th>
+                                <th style="text-align: center;">Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($bidang_usaha as $row)
+                            <tr>
+                                <td style="text-align: center;">{{ $loop->iteration }}</td>
+                                <td style="text-align: left;">{{ $row->nama }}</td>
+                                <td style="text-align: center;">
+                                    <a href="{{ route('admin.bidang_usaha.edit', $row->id_bdng_ush) }}" class="btn btn-sm btn-primary">Ubah</a>
+                                    <form action="{{ route('admin.bidang_usaha.destroy', $row->id_bdng_ush) }}" method="post" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-danger hapusDataM">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

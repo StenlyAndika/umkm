@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Opd;
 use App\Models\Ukm;
+use App\Models\Event;
 use App\Models\Pasien;
 use App\Models\KelasUsaha;
 use App\Models\ActivityLog;
@@ -17,11 +18,15 @@ class DashboardController extends Controller
     {
         if(auth()->user()->is_super == "1") {
             return view('dashboard.index', [
-                'title' => 'Dashboard Super Admin'
+                'title' => 'Dashboard Super Admin',
+                'tukm' => Ukm::join('user', 'user.nik', 'ukm.nik')
+                            ->where('user.is_verified', '1')
+                            ->count()
             ]);
         } else {
-            return view('dashboard.index', [
+            return view('dashboard.home', [
                 'title' => 'Dashboard Admin',
+                'event' => Event::orderBy('created_at', 'desc')->get(),
                 'ukm' => Ukm::where('nik', auth()->user()->nik)->first()
             ]);
         }

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <style>
         trix-toolbar [data-trix-button-group="file-tools"] {
@@ -24,6 +25,10 @@
     </style>
 </head>
 <body>
+    @if(request()->segment(1) != 'login' && request()->segment(1) != 'daftar')
+        @include('partials.mainheader')
+    @endif
+
     @yield('container')
 
     <!-- Vendor JS Files -->
@@ -32,6 +37,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="/vendor/datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
 
     @include('sweetalert::alert')
 
