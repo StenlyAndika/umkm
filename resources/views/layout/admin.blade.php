@@ -26,6 +26,12 @@
         trix-toolbar [data-trix-button-group="file-tools"] {
             display: none;
         }
+        .body-wrapper {
+            background-color: #FAFAFB;
+        }
+        .app-header {
+            box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>

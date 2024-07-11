@@ -55,6 +55,8 @@ Route::middleware(['admin'])->group(function () {
 
     Route::middleware(['super'])->group(function () {
         Route::get('/admin/ukm', [DashboardUkm::class, 'index'])->name('admin.ukm.index');
+        Route::get('/admin/ukm/laporan', [DashboardController::class, 'laporan'])->name('admin.ukm.laporan');
+        Route::get('/admin/ukm/cetak_per_desa', [DashboardController::class, 'cetak_per_desa'])->name('admin.ukm.cetak_per_desa');
 
         Route::get('/admin/master/event', [DashboardEvent::class, 'index'])->name('admin.event.index');
         Route::get('/admin/master/event/create', [DashboardEvent::class, 'create'])->name('admin.event.create');

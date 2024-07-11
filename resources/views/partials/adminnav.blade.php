@@ -105,34 +105,18 @@
                         <span class="hide-menu">Laporan</span>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.bidang_usaha.index') }}" aria-expanded="false">
+                        <a class="sidebar-link" href="{{ route('admin.ukm.laporan') }}" aria-expanded="false">
                             <span>
                                 <i class='bx bx-data'></i>
                             </span>
-                            <span class="hide-menu">Bidang Usaha</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.bidang_usaha.index') }}" aria-expanded="false">
-                            <span>
-                                <i class='bx bx-data'></i>
-                            </span>
-                            <span class="hide-menu">Bidang Usaha</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.bidang_usaha.index') }}" aria-expanded="false">
-                            <span>
-                                <i class='bx bx-data'></i>
-                            </span>
-                            <span class="hide-menu">Bidang Usaha</span>
+                            <span class="hide-menu">Laporan Ukm</span>
                         </a>
                     </li>
                 @endcan
             </ul>
         </nav>
-    <!-- End Sidebar navigation -->
+        <!-- End Sidebar navigation -->
     </div>
     <!-- End Sidebar scroll-->
-    </aside>
-    <!--  Sidebar End -->
+</aside>
+<!--  Sidebar End -->
