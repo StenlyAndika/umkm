@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header border-start border-0 border-4 border-danger">
-                <h5 class="mt-2">Laporan UKM</h5>
+                <h5 class="mt-2">Rekap Desa</h5>
                 <div class="d-flex">
                     <form method="GET" action="{{ url('/admin/ukm/laporan') }}">
                         <select class="select2-bootstrap4 form-control bg-light fs-6" name="id" onchange="this.form.submit()">

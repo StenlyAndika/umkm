@@ -109,7 +109,13 @@
                             <span>
                                 <i class='bx bx-data'></i>
                             </span>
-                            <span class="hide-menu">Laporan Ukm</span>
+                            <span class="hide-menu">Rekap Desa</span>
+                        </a>
+                        <a class="sidebar-link" href="{{ route('admin.ukm.laporankecamatan') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bx-data'></i>
+                            </span>
+                            <span class="hide-menu">Rekam Kecamatan</span>
                         </a>
                     </li>
                 @endcan

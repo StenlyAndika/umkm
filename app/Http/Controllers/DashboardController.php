@@ -13,6 +13,7 @@ use App\Models\BidangUsaha;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -124,6 +125,58 @@ class DashboardController extends Controller
         $ukm = $query->get();
 
         $pdf = PDF::loadView('dashboard.ukm.print', ['ukm' => $ukm]);
+        $pdf->setPaper('F4', 'landscape');
+
+        return $pdf->download('laporan-per-desa.pdf');
+    }
+
+    public function laporankecamatan(Request $request) {
+        $filter = $request->input('id');
+
+        $query = DB::table('ukm')
+                    ->join('desa', 'desa.id', '=', 'ukm.almt_usaha')
+                    ->select(
+                        'ukm.*',
+                        'desa.desa AS almt_usaha',
+                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 1 THEN ukm.id_ukm END) AS totalmikro'),
+                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 2 THEN ukm.id_ukm END) AS totalkecil'),
+                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 3 THEN ukm.id_ukm END) AS totalmenengah'),
+                        DB::raw('sum(ukm.aset) as totalaset'),
+                        DB::raw('sum(ukm.omset) as totalomset'),
+                        DB::raw('sum(ukm.jml_tng_krj) as totaltngkrj')
+                        )
+                    ->where('desa.kecamatan', '=', $filter);
+
+        $ukm = $query->get();
+
+        return view('dashboard.ukm.laporankecamatan', [
+            'title' => 'Dashboard Admin',
+            'ukm' => $ukm,
+            'filter' => $filter
+        ]);
+    }
+
+    public function cetak_per_kecamatan(Request $request)
+    {
+        $filter = $request->input('id');
+
+        $query = DB::table('ukm')
+                    ->join('desa', 'desa.id', '=', 'ukm.almt_usaha')
+                    ->select(
+                        'ukm.*',
+                        'desa.desa AS almt_usaha',
+                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 1 THEN ukm.id_ukm END) AS totalmikro'),
+                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 2 THEN ukm.id_ukm END) AS totalkecil'),
+                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 3 THEN ukm.id_ukm END) AS totalmenengah'),
+                        DB::raw('sum(ukm.aset) as totalaset'),
+                        DB::raw('sum(ukm.omset) as totalomset'),
+                        DB::raw('sum(ukm.jml_tng_krj) as totaltngkrj')
+                        )
+                    ->where('desa.kecamatan', '=', $filter);
+
+        $ukm = $query->get();
+
+        $pdf = PDF::loadView('dashboard.ukm.printkecamatan', ['ukm' => $ukm]);
         $pdf->setPaper('F4', 'landscape');
 
         return $pdf->download('laporan-per-desa.pdf');
