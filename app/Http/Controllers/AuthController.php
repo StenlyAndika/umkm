@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Ukm;
+use App\Models\Desa;
 use App\Models\User;
 use App\Models\Pemilik;
 use App\Models\KelasUsaha;
@@ -46,6 +47,7 @@ class AuthController extends Controller
     public function daftar() {
         return view('auth.daftar', [
             'title' => 'UMKM | Daftar',
+            'desa' => Desa::all(),
             'bidang_usaha' => BidangUsaha::all(),
             'kelas_usaha' => KelasUsaha::all()
         ]);

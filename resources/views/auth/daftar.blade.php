@@ -53,7 +53,12 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Alamat Usaha</label>
-                                        <input type="text" class="form-control" name="almt_usaha">
+                                        <select class="select2-bootstrap4 form-control bg-light fs-6" name="almt_usaha">
+                                            <option value="0" selected>Pilih</option>
+                                            @foreach ($desa as $item)
+                                                <option value="{{ $item->id }}">{{ $item->desa }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Jumlah Tenaga Kerja</label>

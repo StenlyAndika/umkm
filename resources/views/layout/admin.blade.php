@@ -66,6 +66,11 @@
                 theme: 'bootstrap4',
             });
 
+            $('.select2a').select2({
+                theme: 'bootstrap4',
+                dropdownParent: $('#tambahDesa') // Replace #yourModalId with the id of your modal
+            });
+
             $('.datatable').DataTable({
                 pageLength : 10,
                 lengthMenu: [[10, 20, 30], [10, 20, 30]],
@@ -125,6 +130,25 @@
                 Swal.fire({
                     title: 'Hapus produk?',
                     html: "Data produk akan dihapus!",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#004A99',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Hapus',
+                    cancelButtonText: 'Batalkan'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+
+            $(".hapusDesa").click(function (event) {
+                var form =  $(this).closest("form");
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Hapus data desa?',
+                    html: "Data desa akan dihapus!",
                     icon: 'info',
                     showCancelButton: true,
                     confirmButtonColor: '#004A99',

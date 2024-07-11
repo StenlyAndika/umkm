@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardUkm;
 use Symfony\Component\Process\Process;
+use App\Http\Controllers\DashboardDesa;
 use App\Http\Controllers\DashboardUser;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardEvent;
@@ -62,6 +63,14 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/admin/master/event/{event}/edit', [DashboardEvent::class, 'edit'])->name('admin.event.edit');
         Route::put('/admin/master/event/{event}', [DashboardEvent::class, 'update'])->name('admin.event.update');
         Route::delete('/admin/master/event/{event}', [DashboardEvent::class, 'destroy'])->name('admin.event.destroy');
+
+        Route::get('/admin/master/desa', [DashboardDesa::class, 'index'])->name('admin.desa.index');
+        Route::get('/admin/master/desa/create', [DashboardDesa::class, 'create'])->name('admin.desa.create');
+        Route::post('/admin/master/desa', [DashboardDesa::class, 'store'])->name('admin.desa.store');
+        Route::get('/admin/master/desa/{desa}', [DashboardDesa::class, 'show'])->name('admin.desa.show');
+        Route::get('/admin/master/desa/{desa}/edit', [DashboardDesa::class, 'edit'])->name('admin.desa.edit');
+        Route::put('/admin/master/desa/{desa}', [DashboardDesa::class, 'update'])->name('admin.desa.update');
+        Route::delete('/admin/master/desa/{desa}', [DashboardDesa::class, 'destroy'])->name('admin.desa.destroy');
 
         Route::get('/admin/master/bidang_usaha', [DashboardBidangUsaha::class, 'index'])->name('admin.bidang_usaha.index');
         Route::get('/admin/master/bidang_usaha/create', [DashboardBidangUsaha::class, 'create'])->name('admin.bidang_usaha.create');

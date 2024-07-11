@@ -92,6 +92,42 @@
                             <span class="hide-menu">User</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.desa.index') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bxs-user-rectangle' ></i>
+                            </span>
+                            <span class="hide-menu">Data Desa</span>
+                        </a>
+                    </li>
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Laporan</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.bidang_usaha.index') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bx-data'></i>
+                            </span>
+                            <span class="hide-menu">Bidang Usaha</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.bidang_usaha.index') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bx-data'></i>
+                            </span>
+                            <span class="hide-menu">Bidang Usaha</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.bidang_usaha.index') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bx-data'></i>
+                            </span>
+                            <span class="hide-menu">Bidang Usaha</span>
+                        </a>
+                    </li>
                 @endcan
             </ul>
         </nav>
