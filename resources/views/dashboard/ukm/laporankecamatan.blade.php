@@ -19,7 +19,7 @@
                             <option value="Sungai Bungkal" {{ $filter == 'Sungai Bungkal' ? 'selected' : '' }}>Sungai Bungkal</option>
                         </select>
                     </form>&nbsp;
-                    <form method="GET" action="{{ url('/admin/ukm/cetak_per_desa') }}">
+                    <form method="GET" action="{{ url('/admin/ukm/cetak_per_kecamatan') }}">
                         <input type="hidden" name="id" value="{{ $filter }}">
                         <button type="submit" class="btn btn-sm btn-primary me-3 align-middle">Cetak Laporan</button>
                     </form>

@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class KelasUsaha extends Model
 {
-    use HasFactory;
-    protected $table = 'kelas_usaha';
-    protected $guarded = ['id_kls_ush'];
-    protected $primaryKey = 'id_kls_ush';
-    public $timestamps = false;
+    public static function getall()
+    {
+        return [
+            'Mikro',
+            'Kecil',
+            'Menengah'
+        ];
+    }
 }

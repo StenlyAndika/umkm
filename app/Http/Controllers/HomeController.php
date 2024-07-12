@@ -18,11 +18,9 @@ class HomeController extends Controller
     
         $query = Produk::join('ukm', 'ukm.id_ukm', '=', 'produk.id_ukm')
             ->join('bidang_usaha', 'bidang_usaha.id_bdng_ush', '=', 'ukm.id_bdng_ush')
-            ->join('kelas_usaha', 'kelas_usaha.id_kls_ush', '=', 'ukm.id_kls_ush')
             ->select(
                 'produk.*',
-                'bidang_usaha.nama as bidang_usaha', 
-                'kelas_usaha.nama as kelas_usaha'
+                'bidang_usaha.nama as bidang_usaha'
             );
 
         if ($filter && $filter != 0) {

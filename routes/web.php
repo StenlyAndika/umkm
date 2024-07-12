@@ -10,7 +10,6 @@ use App\Http\Controllers\DashboardEvent;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardProduk;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DashboardKelasUsaha;
 use App\Http\Controllers\DashboardBidangUsaha;
 use App\Http\Controllers\DashboardPendaftaran;
 
@@ -83,14 +82,6 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/admin/master/bidang_usaha/{bidang_usaha}/edit', [DashboardBidangUsaha::class, 'edit'])->name('admin.bidang_usaha.edit');
         Route::put('/admin/master/bidang_usaha/{bidang_usaha}', [DashboardBidangUsaha::class, 'update'])->name('admin.bidang_usaha.update');
         Route::delete('/admin/master/bidang_usaha/{bidang_usaha}', [DashboardBidangUsaha::class, 'destroy'])->name('admin.bidang_usaha.destroy');
-
-        Route::get('/admin/master/kelas_usaha', [DashboardKelasUsaha::class, 'index'])->name('admin.kelas_usaha.index');
-        Route::get('/admin/master/kelas_usaha/create', [DashboardKelasUsaha::class, 'create'])->name('admin.kelas_usaha.create');
-        Route::post('/admin/master/kelas_usaha', [DashboardKelasUsaha::class, 'store'])->name('admin.kelas_usaha.store');
-        Route::get('/admin/master/kelas_usaha/{kelas_usaha}', [DashboardKelasUsaha::class, 'show'])->name('admin.kelas_usaha.show');
-        Route::get('/admin/master/kelas_usaha/{kelas_usaha}/edit', [DashboardKelasUsaha::class, 'edit'])->name('admin.kelas_usaha.edit');
-        Route::put('/admin/master/kelas_usaha/{kelas_usaha}', [DashboardKelasUsaha::class, 'update'])->name('admin.kelas_usaha.update');
-        Route::delete('/admin/master/kelas_usaha/{kelas_usaha}', [DashboardKelasUsaha::class, 'destroy'])->name('admin.kelas_usaha.destroy');
 
         Route::get('/admin/master/user', [DashboardUser::class, 'index'])->name('admin.user.index');
         Route::get('/admin/master/user/create', [DashboardUser::class, 'create'])->name('admin.user.create');

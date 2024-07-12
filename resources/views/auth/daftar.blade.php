@@ -36,10 +36,10 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Kelas Usaha</label>
-                                        <select class="select2-bootstrap4 form-control bg-light fs-6" name="id_kls_ush">
+                                        <select class="select2-bootstrap4 form-control bg-light fs-6" name="kelas_usaha">
                                             <option value="0" selected>Pilih</option>
                                             @foreach ($kelas_usaha as $item)
-                                                <option value="{{ $item->id_kls_ush }}">{{ $item->nama }}</option>
+                                                <option value="{{ $item }}">{{ $item }}</option>
                                             @endforeach
                                         </select>
                                     </div>

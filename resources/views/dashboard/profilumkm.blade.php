@@ -33,13 +33,13 @@
                         </div>
                         <div class="col-lg-6">
                             <label class="form-label">Kelas Usaha</label>
-                            <select class="select2-bootstrap4 form-control bg-light fs-6" name="id_kls_ush">
+                            <select class="select2-bootstrap4 form-control bg-light fs-6" name="kelas_usaha">
                                 <option value="0" selected>Pilih</option>
                                 @foreach ($kelas_usaha as $item)
-                                    <option value="{{ $item->id_kls_ush }}"
-                                    @if ($item->id_kls_ush == $ukm->id_kls_ush)
+                                    <option value="{{ $item }}"
+                                    @if ($item == $ukm->kelas_usaha)
                                         selected
-                                    @endif >{{ $item->nama }}</option>
+                                    @endif >{{ $item }}</option>
                                 @endforeach
                             </select>
                         </div>

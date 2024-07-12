@@ -77,14 +77,6 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.kelas_usaha.index') }}" aria-expanded="false">
-                            <span>
-                                <i class='bx bx-data'></i>
-                            </span>
-                            <span class="hide-menu">Kelas Usaha</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.user.index') }}" aria-expanded="false">
                             <span>
                                 <i class='bx bxs-user-rectangle' ></i>

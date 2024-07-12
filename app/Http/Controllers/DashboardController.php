@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Opd;
 use App\Models\Ukm;
 use App\Models\Desa;
 use App\Models\Event;
-use App\Models\Pasien;
 use App\Models\KelasUsaha;
-use App\Models\ActivityLog;
 use App\Models\BidangUsaha;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
@@ -39,7 +36,7 @@ class DashboardController extends Controller
         return view('dashboard.profilumkm', [
             'title' => 'Dashboard Super Admin',
             'bidang_usaha' => BidangUsaha::all(),
-            'kelas_usaha' => KelasUsaha::all(),
+            'kelas_usaha' => KelasUsaha::getall(),
             'ukm' => Ukm::where('nik', auth()->user()->nik)->first()
         ]);
     }
@@ -48,7 +45,7 @@ class DashboardController extends Controller
 
         $rulesukm = [
             'id_bdng_ush' => 'required',
-            'id_kls_ush' => 'required',
+            'kelas_usaha' => 'required',
             'deskripsi' => 'required',
             'no_npwp' => 'required',
             'sektor_usaha' => 'required',
@@ -71,7 +68,6 @@ class DashboardController extends Controller
         $query = Ukm::join('user', 'user.nik', '=', 'ukm.nik')
                     ->join('pemilik', 'pemilik.nik', '=', 'ukm.nik')
                     ->join('bidang_usaha', 'bidang_usaha.id_bdng_ush', '=', 'ukm.id_bdng_ush')
-                    ->join('kelas_usaha', 'kelas_usaha.id_kls_ush', '=', 'ukm.id_kls_ush')
                     ->join('desa', 'desa.id', '=', 'ukm.almt_usaha')
                     ->orderBy('user.is_verified', 'asc')
                     ->select(
@@ -81,8 +77,7 @@ class DashboardController extends Controller
                         'pemilik.nik as nik',
                         'desa.desa as almt_usaha',
                         'pemilik.nama as nama_pemilik', 
-                        'bidang_usaha.nama as bidang_usaha', 
-                        'kelas_usaha.nama as kelas_usaha',
+                        'bidang_usaha.nama as bidang_usaha',
                     );
 
         if ($filter && $filter != 0) {
@@ -104,7 +99,6 @@ class DashboardController extends Controller
         $query = Ukm::join('user', 'user.nik', '=', 'ukm.nik')
                     ->join('pemilik', 'pemilik.nik', '=', 'ukm.nik')
                     ->join('bidang_usaha', 'bidang_usaha.id_bdng_ush', '=', 'ukm.id_bdng_ush')
-                    ->join('kelas_usaha', 'kelas_usaha.id_kls_ush', '=', 'ukm.id_kls_ush')
                     ->join('desa', 'desa.id', '=', 'ukm.almt_usaha')
                     ->orderBy('user.is_verified', 'asc')
                     ->select(
@@ -114,8 +108,7 @@ class DashboardController extends Controller
                         'pemilik.nik as nik',
                         'desa.desa as almt_usaha',
                         'pemilik.nama as nama_pemilik', 
-                        'bidang_usaha.nama as bidang_usaha', 
-                        'kelas_usaha.nama as kelas_usaha',
+                        'bidang_usaha.nama as bidang_usaha',
                     );
 
         if ($filter && $filter != 0) {
@@ -127,7 +120,7 @@ class DashboardController extends Controller
         $pdf = PDF::loadView('dashboard.ukm.print', ['ukm' => $ukm]);
         $pdf->setPaper('F4', 'landscape');
 
-        return $pdf->download('laporan-per-desa.pdf');
+        return $pdf->download('rekap-desa.pdf');
     }
 
     public function laporankecamatan(Request $request) {
@@ -138,14 +131,15 @@ class DashboardController extends Controller
                     ->select(
                         'ukm.*',
                         'desa.desa AS almt_usaha',
-                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 1 THEN ukm.id_ukm END) AS totalmikro'),
-                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 2 THEN ukm.id_ukm END) AS totalkecil'),
-                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 3 THEN ukm.id_ukm END) AS totalmenengah'),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Mikro' THEN ukm.id_ukm END) AS totalmikro"),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Kecil' THEN ukm.id_ukm END) AS totalkecil"),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Menengah' THEN ukm.id_ukm END) AS totalmenengah"),
                         DB::raw('sum(ukm.aset) as totalaset'),
                         DB::raw('sum(ukm.omset) as totalomset'),
                         DB::raw('sum(ukm.jml_tng_krj) as totaltngkrj')
                         )
-                    ->where('desa.kecamatan', '=', $filter);
+                    ->where('desa.kecamatan', '=', $filter)
+                    ->groupBy('ukm.almt_usaha');
 
         $ukm = $query->get();
 
@@ -165,21 +159,22 @@ class DashboardController extends Controller
                     ->select(
                         'ukm.*',
                         'desa.desa AS almt_usaha',
-                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 1 THEN ukm.id_ukm END) AS totalmikro'),
-                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 2 THEN ukm.id_ukm END) AS totalkecil'),
-                        DB::raw('COUNT(CASE WHEN ukm.id_kls_ush = 3 THEN ukm.id_ukm END) AS totalmenengah'),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Mikro' THEN ukm.id_ukm END) AS totalmikro"),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Kecil' THEN ukm.id_ukm END) AS totalkecil"),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Menengah' THEN ukm.id_ukm END) AS totalmenengah"),
                         DB::raw('sum(ukm.aset) as totalaset'),
                         DB::raw('sum(ukm.omset) as totalomset'),
                         DB::raw('sum(ukm.jml_tng_krj) as totaltngkrj')
                         )
-                    ->where('desa.kecamatan', '=', $filter);
+                    ->where('desa.kecamatan', '=', $filter)
+                    ->groupBy('ukm.almt_usaha');
 
         $ukm = $query->get();
 
-        $pdf = PDF::loadView('dashboard.ukm.printkecamatan', ['ukm' => $ukm]);
+        $pdf = PDF::loadView('dashboard.ukm.printkecamatan', ['ukm' => $ukm, 'filter' => $filter]);
         $pdf->setPaper('F4', 'landscape');
 
-        return $pdf->download('laporan-per-desa.pdf');
+        return $pdf->download('rekap-kecamatan.pdf');
     }
 
 }

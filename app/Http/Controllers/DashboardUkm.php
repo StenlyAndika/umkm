@@ -19,15 +19,13 @@ class DashboardUkm extends Controller
             'ukm' => Ukm::join('user', 'user.nik', '=', 'ukm.nik')
                         ->join('pemilik', 'pemilik.nik', '=', 'ukm.nik')
                         ->join('bidang_usaha', 'bidang_usaha.id_bdng_ush', '=', 'ukm.id_bdng_ush')
-                        ->join('kelas_usaha', 'kelas_usaha.id_kls_ush', '=', 'ukm.id_kls_ush')
                         ->orderBy('user.is_verified', 'asc')
                         ->select(
                             'ukm.*', 
                             'user.id as user_id',
                             'user.is_verified',
                             'pemilik.nama as nama_pemilik', 
-                            'bidang_usaha.nama as bidang_usaha', 
-                            'kelas_usaha.nama as kelas_usaha',
+                            'bidang_usaha.nama as bidang_usaha',
                         )
                         ->get()
         ]);

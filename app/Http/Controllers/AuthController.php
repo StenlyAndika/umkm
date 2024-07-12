@@ -49,7 +49,7 @@ class AuthController extends Controller
             'title' => 'UMKM | Daftar',
             'desa' => Desa::all(),
             'bidang_usaha' => BidangUsaha::all(),
-            'kelas_usaha' => KelasUsaha::all()
+            'kelas_usaha' => KelasUsaha::getall()
         ]);
     }
 
@@ -57,7 +57,7 @@ class AuthController extends Controller
         $rulesukm = [
             'nik' => 'required',
             'id_bdng_ush' => 'required',
-            'id_kls_ush' => 'required',
+            'kelas_usaha' => 'required',
             'nm_perusahaan' => 'required',
             'deskripsi' => 'required',
             'no_npwp' => 'required',
