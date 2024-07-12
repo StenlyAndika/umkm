@@ -177,4 +177,48 @@ class DashboardController extends Controller
         return $pdf->download('rekap-kecamatan.pdf');
     }
 
+    public function laporankota() {
+        $query = DB::table('ukm')
+                    ->join('desa', 'desa.id', '=', 'ukm.almt_usaha')
+                    ->select(
+                        'desa.kecamatan AS almt_usaha',
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Mikro' THEN ukm.id_ukm END) AS totalmikro"),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Kecil' THEN ukm.id_ukm END) AS totalkecil"),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Menengah' THEN ukm.id_ukm END) AS totalmenengah"),
+                        DB::raw('sum(ukm.aset) as totalaset'),
+                        DB::raw('sum(ukm.omset) as totalomset'),
+                        DB::raw('sum(ukm.jml_tng_krj) as totaltngkrj')
+                        )
+                    ->groupBy('desa.kecamatan');
+
+        $ukm = $query->get();
+
+        return view('dashboard.ukm.laporankota', [
+            'title' => 'Dashboard Admin',
+            'ukm' => $ukm
+        ]);
+    }
+
+    public function cetak_per_kota()
+    {
+        $query = DB::table('ukm')
+                    ->join('desa', 'desa.id', '=', 'ukm.almt_usaha')
+                    ->select(
+                        'desa.kecamatan AS almt_usaha',
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Mikro' THEN ukm.id_ukm END) AS totalmikro"),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Kecil' THEN ukm.id_ukm END) AS totalkecil"),
+                        DB::raw("COUNT(CASE WHEN ukm.kelas_usaha = 'Menengah' THEN ukm.id_ukm END) AS totalmenengah"),
+                        DB::raw('sum(ukm.aset) as totalaset'),
+                        DB::raw('sum(ukm.omset) as totalomset'),
+                        DB::raw('sum(ukm.jml_tng_krj) as totaltngkrj')
+                        )
+                    ->groupBy('desa.kecamatan');
+
+        $ukm = $query->get();
+
+        $pdf = PDF::loadView('dashboard.ukm.printkota', ['ukm' => $ukm]);
+        $pdf->setPaper('F4', 'landscape');
+
+        return $pdf->download('rekap-kota.pdf');
+    }
 }

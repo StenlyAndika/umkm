@@ -58,6 +58,8 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/admin/ukm/cetak_per_desa', [DashboardController::class, 'cetak_per_desa'])->name('admin.ukm.cetak_per_desa');
         Route::get('/admin/ukm/laporankecamatan', [DashboardController::class, 'laporankecamatan'])->name('admin.ukm.laporankecamatan');
         Route::get('/admin/ukm/cetak_per_kecamatan', [DashboardController::class, 'cetak_per_kecamatan'])->name('admin.ukm.cetak_per_kecamatan');
+        Route::get('/admin/ukm/laporankota', [DashboardController::class, 'laporankota'])->name('admin.ukm.laporankota');
+        Route::get('/admin/ukm/cetak_per_kota', [DashboardController::class, 'cetak_per_kota'])->name('admin.ukm.cetak_per_kota');
 
         Route::get('/admin/master/event', [DashboardEvent::class, 'index'])->name('admin.event.index');
         Route::get('/admin/master/event/create', [DashboardEvent::class, 'create'])->name('admin.event.create');

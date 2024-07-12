@@ -109,6 +109,12 @@
                             </span>
                             <span class="hide-menu">Rekam Kecamatan</span>
                         </a>
+                        <a class="sidebar-link" href="{{ route('admin.ukm.laporankota') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bx-data'></i>
+                            </span>
+                            <span class="hide-menu">Rekam Kota</span>
+                        </a>
                     </li>
                 @endcan
             </ul>
