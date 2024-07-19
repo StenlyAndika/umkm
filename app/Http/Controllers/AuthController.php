@@ -45,12 +45,31 @@ class AuthController extends Controller
     }
 
     public function daftar() {
+        $kecamatan = [
+            'Sungai Penuh',
+            'Pesisir Bukit',
+            'Hamparan Rawang',
+            'Tanah Kampung',
+            'Kumun Debai',
+            'Pondok Tinggi',
+            'Koto Baru',
+            'Sungai Bungkal'
+        ];
         return view('auth.daftar', [
             'title' => 'UMKM | Daftar',
-            'desa' => Desa::all(),
             'bidang_usaha' => BidangUsaha::all(),
+            'kecamatan' => $kecamatan,
             'kelas_usaha' => KelasUsaha::getall()
         ]);
+    }
+
+    public function getdesa($kecamatan)
+    {
+        $desa = Desa::where('kecamatan', $kecamatan)->get();
+        if ($desa) {
+            return response()->json($desa);
+        }
+        return response()->json(['message' => 'Desa not found'], 404);
     }
 
     public function register(Request $request) {
@@ -64,8 +83,8 @@ class AuthController extends Controller
             'sektor_usaha' => 'required',
             'almt_usaha' => 'required',
             'jml_tng_krj' => 'required',
-            'aset' => 'required',
-            'omset' => 'required'
+            'aset' => 'required|numeric',
+            'omset' => 'required|numeric'
         ];
         
         $validatedDataUkm = $request->validate($rulesukm);
@@ -78,9 +97,7 @@ class AuthController extends Controller
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required',
             'jekel' => 'required',
-            'alamat' => 'required',
-            'umur' => 'required',
-            'jabatan' => 'required'
+            'alamat' => 'required'
         ];
         
         $validatedDataPemilik = $request->validate($rulespemilik);

@@ -30,6 +30,7 @@
                                     @endif
                                 </td>
                                 <td>
+                                    <a href="{{ route('admin.user.edit', $row->id) }}" class="btn btn-sm btn-primary">Ubah</a>
                                     <form action="{{ route('admin.user.destroy', $row->id) }}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf

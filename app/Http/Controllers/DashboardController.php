@@ -36,6 +36,7 @@ class DashboardController extends Controller
         return view('dashboard.profilumkm', [
             'title' => 'Dashboard Super Admin',
             'bidang_usaha' => BidangUsaha::all(),
+            'desa' => Desa::all(),
             'kelas_usaha' => KelasUsaha::getall(),
             'ukm' => Ukm::where('nik', auth()->user()->nik)->first()
         ]);
@@ -65,6 +66,7 @@ class DashboardController extends Controller
 
     public function laporan(Request $request) {
         $filter = $request->input('id');
+        $filter2 = $request->input('bidang_usaha');
         $query = Ukm::join('user', 'user.nik', '=', 'ukm.nik')
                     ->join('pemilik', 'pemilik.nik', '=', 'ukm.nik')
                     ->join('bidang_usaha', 'bidang_usaha.id_bdng_ush', '=', 'ukm.id_bdng_ush')
@@ -82,20 +84,24 @@ class DashboardController extends Controller
 
         if ($filter && $filter != 0) {
             $query->where('desa.id', $filter);
+            $query->where('bidang_usaha.nama', $filter2);
         }
 
         $ukm = $query->get();
         return view('dashboard.ukm.laporan', [
             'title' => 'Dashboard Admin',
             'desa' => Desa::all(),
+            'bidang_usaha' => BidangUsaha::all(),
             'ukm' => $ukm,
-            'filter' => $filter
+            'filter' => $filter,
+            'filter2' => $filter2
         ]);
     }
 
     public function cetak_per_desa(Request $request)
     {
         $filter = $request->input('id');
+        $filter2 = $request->input('bidang_usaha');
         $query = Ukm::join('user', 'user.nik', '=', 'ukm.nik')
                     ->join('pemilik', 'pemilik.nik', '=', 'ukm.nik')
                     ->join('bidang_usaha', 'bidang_usaha.id_bdng_ush', '=', 'ukm.id_bdng_ush')
@@ -113,11 +119,14 @@ class DashboardController extends Controller
 
         if ($filter && $filter != 0) {
             $query->where('desa.id', $filter);
+            $query->where('bidang_usaha.nama', $filter2);
         }
 
         $ukm = $query->get();
 
-        $pdf = PDF::loadView('dashboard.ukm.print', ['ukm' => $ukm]);
+        $desa = Desa::where('id', $request->input('id'))->first();
+
+        $pdf = PDF::loadView('dashboard.ukm.print', ['ukm' => $ukm, 'desa' => $desa]);
         $pdf->setPaper('F4', 'landscape');
 
         return $pdf->download('rekap-desa.pdf');

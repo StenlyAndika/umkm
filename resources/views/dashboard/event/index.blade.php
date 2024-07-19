@@ -17,6 +17,9 @@
                                 <th style="text-align: center;">#</th>
                                 <th style="text-align: left;">Judul</th>
                                 <th style="text-align: left;">Deskripsi</th>
+                                <th style="text-align: left;">Tgl Pelaksanaan</th>
+                                <th style="text-align: left;">Kuota</th>
+                                <th style="text-align: left;">Peserta Mendaftar</th>
                                 <th style="text-align: center;">Opsi</th>
                             </tr>
                         </thead>
@@ -26,7 +29,16 @@
                                 <td style="text-align: center;">{{ $loop->iteration }}</td>
                                 <td style="text-align: center;">{{ $row->judul }}</td>
                                 <td style="text-align: left;">{!! $row->deskripsi !!}</td>
+                                <td style="text-align: center;">{{ $row->tgl }}</td>
+                                <td style="text-align: center;">{{ $row->kuota }}</td>
                                 <td style="text-align: center;">
+                                    @php
+                                        $cek = App\Models\Peserta::where('ide', $row->id)->count()
+                                    @endphp
+                                    {{ $cek }}
+                                </td>
+                                <td style="text-align: center;">
+                                    <!-- <a href="{{ route('admin.event.peserta', $row->id) }}" class="btn btn-sm btn-primary">Validasi Peserta</a> -->
                                     <a href="{{ route('admin.event.edit', $row->id) }}" class="btn btn-sm btn-primary">Ubah</a>
                                     <form action="{{ route('admin.event.destroy', $row->id) }}" method="post" class="d-inline">
                                         @method('delete')
@@ -60,6 +72,14 @@
                             <label class="form-label">Deskripsi Event</label>
                             <input type="hidden" id="deskripsi" name="deskripsi">
                             <trix-editor input="deskripsi"></trix-editor>
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label">Tanggal Pelaksanaan</label>
+                            <input type="text" class="form-control" id="datepicker" name="tgl" value="">
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label">Kuota</label>
+                            <input type="text" class="form-control" name="kuota" value="">
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ukm;
 use App\Models\Event;
+use App\Models\Peserta;
 use Illuminate\Http\Request;
 
 class DashboardEvent extends Controller
@@ -18,6 +20,64 @@ class DashboardEvent extends Controller
             'title' => 'Event',
             'event' => Event::orderBy('created_at', 'ASC')->get()
         ]);
+    }
+
+    public function daftar($id)
+    {
+        return view('dashboard.event.daftar', [
+            'title' => 'Event',
+            'event' => Event::where('id', $id)->first(),
+            'ukm' => Ukm::where('nik', auth()->user()->nik)->first()
+        ]);
+    }
+
+    public function peserta()
+    {
+        return view('dashboard.event.peserta', [
+            'title' => 'Event',
+            'peserta' => Peserta::all()
+        ]);
+    }
+
+    public function pesertaverif(Request $request)
+    {
+        $data = [
+            'status' => '1',
+        ];
+
+        Peserta::where('id', $request->id)->update($data);
+
+        $ev = Peserta::where('id', $request->id)->first();
+        $ckuota = Event::where('id', $ev->ide)->first();
+        $kuota = $ckuota->kuota - 1;
+        $validatedDataEvent['kuota'] = $kuota;
+        Event::where('id', $ev->ide)->update($validatedDataEvent);
+
+        return redirect()->route('admin.event.index')->with('toast_success', 'UKM Berhasil Diverifikasi!');
+    }
+
+    public function pesertatolak(Request $request)
+    {
+        $data = [
+            'status' => '2',
+        ];
+    
+        Peserta::where('id', $request->id)->update($data);
+
+        return redirect()->route('admin.event.index')->with('toast_success', 'UKM Berhasil Ditolak!');
+    }
+
+    public function daftarevent(Request $request)
+    {
+        $rules = [
+            'ide' => 'required',
+            'id_ukm' => 'required'
+        ];
+
+        $validatedData = $request->validate($rules);
+        Peserta::create($validatedData);
+
+        return redirect()->route('admin.dashboard')->with('toast_success', 'Data berhasil diupdate!');
     }
 
     /**
@@ -40,7 +100,9 @@ class DashboardEvent extends Controller
     {
         $rules = [
             'judul' => 'required',
-            'deskripsi' => 'required'
+            'deskripsi' => 'required',
+            'tgl' => 'required',
+            'kuota' => 'required'
         ];
 
         $validatedData = $request->validate($rules);
@@ -85,7 +147,9 @@ class DashboardEvent extends Controller
     {
         $rules = [
             'judul' => 'required',
-            'deskripsi' => 'required'
+            'deskripsi' => 'required',
+            'tgl' => 'required',
+            'kuota' => 'required'
         ];
 
         $validatedData = $request->validate($rules);

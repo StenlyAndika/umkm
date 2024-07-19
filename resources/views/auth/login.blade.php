@@ -1,38 +1,28 @@
 @extends('layout.main')
 
 @section('container')
-    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed">
-        <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
-            <div class="d-flex align-items-center justify-content-center w-100">
-                <div class="row justify-content-center w-100">
-                    <div class="col-md-8 col-lg-6 col-xxl-3">
-                    <div class="card mb-0">
-                        <div class="card-body">
-                            <a href="{{ route('welcome') }}" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                                <img src="/img/tablogo.webp" width="50" alt="">
-                            </a>
-                            <h3 class="text-center">UMKM Kota Sungai Penuh</h3>
-                            <form method="post" action="{{ route('auth') }}">
-                                @csrf
-                                <div class="mb-3">
-                                    <label class="form-label">Username</label>
-                                    <input type="text" class="form-control" name="username">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label">Password</label>
-                                    <input type="password" class="form-control" name="password">
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Masuk</button>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <p class="fs-4 mb-0 fw-bold">Belum punya akun?</p>
-                                    <a class="text-primary fw-bold ms-2" href="{{ route('daftar') }}">Buat akun baru</a>
-                                </div>
-                            </form>
-                        </div>
+<section class="user-login section" style="padding: 100px 0;">
+    <div class="container col-lg-3">
+        <div class="block">
+            <div class="content">
+                @if (session('loginError'))
+                    <div class="alert alert-danger">
+                        {{ session('loginError') }}
                     </div>
-                </div>
+                @endif
+                <form class="form-signin" action="{{ route('auth') }}" method="post">
+                    @csrf
+                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Username" value="{{ old('username') }}" autofocus>
+                    @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <input type="password" name="password" class="form-control mt-1" placeholder="Password">
+                    <button type="submit" class="btn btn-md btn-primary btn-block mt-2">Login</button>
+                </form>
             </div>
         </div>
     </div>
+</section>
 @endsection

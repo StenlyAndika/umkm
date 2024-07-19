@@ -72,6 +72,13 @@
                 theme: 'bootstrap4',
             });
 
+            $("#datepicker").datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true,
+                language : 'id'
+            });
+
             $('.select2a').select2({
                 theme: 'bootstrap4',
                 dropdownParent: $('#tambahDesa') // Replace #yourModalId with the id of your modal
@@ -112,6 +119,44 @@
             });
 
             $(".setRejected").click(function (event) {
+                var form =  $(this).closest("form");
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Tolak UKM?',
+                    html: "UKM akan ditolak!",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#004A99',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Tolak',
+                    cancelButtonText: 'Batalkan'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+
+            $(".setTerima").click(function (event) {
+                var form =  $(this).closest("form");
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Verifikasi UKM?',
+                    html: "UKM akan diverifikasi!",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#004A99',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Verifikasi',
+                    cancelButtonText: 'Batalkan'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+
+            $(".setTolak").click(function (event) {
                 var form =  $(this).closest("form");
                 event.preventDefault();
                 Swal.fire({

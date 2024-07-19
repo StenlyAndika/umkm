@@ -59,6 +59,49 @@
                 @endforeach
         </tbody>
     </table>
+    <style>
+        .container {
+            width: 100%;
+        }
+        .right-align {
+            width: 100%;
+            text-align: left;
+        }
+        .right-align td:first-child {
+            width: 75%;
+        }
+        .right-align td:last-child {
+            width: 25%;
+        }
+    </style>
+    <br>
+    <br>
+    <table class="right-align">
+        <tr>
+            <td>&nbsp;</td>
+            <td>Sungai Penuh, {{ Carbon\Carbon::now()->format('d-m-Y') }}</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>Kepala Dinas Koperasi dan UKM</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>Tiarudin Arsi, S.T., M.Si</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>NIP.19630303 198803 1 010</td>
+        </tr>
+    </table>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 </body>

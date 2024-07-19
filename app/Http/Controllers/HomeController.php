@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\Instansi;
 use App\Models\BidangUsaha;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function index() {
+
+        return view('home.index', [
+            'title' => 'UMKM Kota Sungai Penuh'
+        ]);
+    }
+
+    public function produk(Request $request) {
         $filter = $request->input('id_bdng_ush');
     
         $query = Produk::join('ukm', 'ukm.id_ukm', '=', 'produk.id_ukm')
@@ -29,7 +37,7 @@ class HomeController extends Controller
 
         $produk = $query->paginate(12);
 
-        return view('home.index', [
+        return view('home.produk', [
             'title' => 'UMKM Kota Sungai Penuh',
             'bidang_usaha' => BidangUsaha::all(),
             'produk' => $produk,
@@ -50,6 +58,27 @@ class HomeController extends Controller
                         'bidang_usaha.nama as bidang_usaha')
                         ->where('id_produk', $produk)
                         ->first()
+        ]);
+    }
+
+    public function tentang() {
+        return view('home.tentang', [
+            'title' => 'Tentang Instansi',
+            'instansi' => Instansi::first()
+        ]);
+    }
+
+    public function visi() {
+        return view('home.visi', [
+            'title' => 'Tentang Instansi',
+            'instansi' => Instansi::first()
+        ]);
+    }
+
+    public function tugas() {
+        return view('home.tugas', [
+            'title' => 'Tugas Instansi',
+            'instansi' => Instansi::first()
         ]);
     }
 

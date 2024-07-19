@@ -9,6 +9,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardEvent;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardProduk;
+use App\Http\Controllers\DashboardPeserta;
+use App\Http\Controllers\DashboardInstansi;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardBidangUsaha;
 use App\Http\Controllers\DashboardPendaftaran;
@@ -25,10 +27,16 @@ use App\Http\Controllers\DashboardPendaftaran;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome')->middleware('guest');
+Route::get('/produk', [HomeController::class, 'produk'])->name('produk')->middleware('guest');
 Route::get('/detail/{produk}', [HomeController::class, 'detail'])->name('home.detail')->middleware('guest');
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::get('/daftar', [AuthController::class, 'daftar'])->name('daftar')->middleware('guest');
+Route::get('/getdesa/{kecamatan}', [AuthController::class, 'getdesa'])->name('getdesa');
 Route::get('/daftaradmin', [AuthController::class, 'daftaradmin'])->name('daftaradmin')->middleware('guest');
+
+Route::get('/tentang/tentang', [HomeController::class, 'tentang'])->name('tentang')->middleware('guest');
+Route::get('/tengang/visidanmisi', [HomeController::class, 'visi'])->name('visi')->middleware('guest');
+Route::get('/tentang/tugasdanwewenang', [HomeController::class, 'tugas'])->name('tugas')->middleware('guest');
 
 Route::post('/login', [AuthController::class, 'authenticate'])->name('auth')->middleware('guest');
 Route::post('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
@@ -42,8 +50,6 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/dashboard/profilumkm', [DashboardController::class, 'profilumkm'])->name('admin.profilumkm');
     Route::put('/dashboard/profilumkm/{profilumkm}', [DashboardController::class, 'profilumkmupdate'])->name('admin.profilumkm.update');
 
-    Route::get('/admin/user/{user}/show', [DashboardUser::class, 'show'])->name('admin.user.show');
-
     Route::get('/admin/master/produk', [DashboardProduk::class, 'index'])->name('admin.produk.index');
     Route::get('/admin/master/produk/create', [DashboardProduk::class, 'create'])->name('admin.produk.create');
     Route::post('/admin/master/produk', [DashboardProduk::class, 'store'])->name('admin.produk.store');
@@ -52,7 +58,22 @@ Route::middleware(['admin'])->group(function () {
     Route::put('/admin/master/produk/{produk}', [DashboardProduk::class, 'update'])->name('admin.produk.update');
     Route::delete('/admin/master/produk/{produk}', [DashboardProduk::class, 'destroy'])->name('admin.produk.destroy');
 
+    Route::get('/admin/event/peserta', [DashboardEvent::class, 'peserta'])->name('admin.event.peserta');
+    Route::get('/admin/event/{id}', [DashboardEvent::class, 'daftar'])->name('admin.event.daftar');
+    Route::post('/admin/daftarevent', [DashboardEvent::class, 'daftarevent'])->name('admin.event.daftarevent');
+    Route::put('/admin/event/peserta/verif/{id}', [DashboardEvent::class, 'pesertaverif'])->name('admin.event.pesertaverif');
+    Route::put('/admin/event/peserta/tolak/{id}', [DashboardEvent::class, 'pesertatolak'])->name('admin.event.pesertatolak');
+
+    Route::get('/admin/peserta/event', [DashboardPeserta::class, 'index'])->name('admin.peserta.index');
+
+    Route::get('/admin/user/{user}/show', [DashboardUser::class, 'show'])->name('admin.user.show');
+    Route::put('/admin/master/user/{user}', [DashboardUser::class, 'update'])->name('admin.user.update');
+
     Route::middleware(['super'])->group(function () {
+        Route::get('/admin/instansi', [DashboardInstansi::class, 'index'])->name('admin.instansi.index');
+        Route::post('/admin/instansi', [DashboardInstansi::class, 'store'])->name('admin.instansi.store');
+        Route::put('/admin/instansi/{id}', [DashboardInstansi::class, 'update'])->name('admin.instansi.update');
+
         Route::get('/admin/ukm', [DashboardUkm::class, 'index'])->name('admin.ukm.index');
         Route::get('/admin/ukm/laporan', [DashboardController::class, 'laporan'])->name('admin.ukm.laporan');
         Route::get('/admin/ukm/cetak_per_desa', [DashboardController::class, 'cetak_per_desa'])->name('admin.ukm.cetak_per_desa');
@@ -88,7 +109,6 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/admin/master/user', [DashboardUser::class, 'index'])->name('admin.user.index');
         Route::get('/admin/master/user/create', [DashboardUser::class, 'create'])->name('admin.user.create');
         Route::get('/admin/master/user/{user}/edit', [DashboardUser::class, 'edit'])->name('admin.user.edit');
-        Route::put('/admin/master/user/{user}', [DashboardUser::class, 'update'])->name('admin.user.update');
         Route::put('/admin/master/user/{user}/verif', [DashboardUser::class, 'updateverif'])->name('admin.user.updateverif');
         Route::put('/admin/master/user/{user}/reject', [DashboardUser::class, 'updatereject'])->name('admin.user.updatereject');
         Route::delete('/admin/user/{user}', [DashboardUser::class, 'destroy'])->name('admin.user.destroy');

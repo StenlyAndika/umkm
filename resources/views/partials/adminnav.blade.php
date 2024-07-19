@@ -34,6 +34,14 @@
                             <span class="hide-menu">Produk</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.peserta.index') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bx-data'></i>
+                            </span>
+                            <span class="hide-menu">Data Event</span>
+                        </a>
+                    </li>
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Data UMKM</span>
@@ -64,6 +72,14 @@
                             <span class="hide-menu">Data Event</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.event.peserta') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bx-data'></i>
+                            </span>
+                            <span class="hide-menu">Data Peserta Event</span>
+                        </a>
+                    </li>
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Data Master</span>
@@ -87,9 +103,15 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.desa.index') }}" aria-expanded="false">
                             <span>
-                                <i class='bx bxs-user-rectangle' ></i>
+                                <i class='bx bxs-building-house'></i>
                             </span>
                             <span class="hide-menu">Data Desa</span>
+                        </a>
+                        <a class="sidebar-link" href="{{ route('admin.instansi.index') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bxs-report' ></i>
+                            </span>
+                            <span class="hide-menu">Profil Instansi</span>
                         </a>
                     </li>
                     <li class="nav-small-cap">
@@ -99,19 +121,19 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.ukm.laporan') }}" aria-expanded="false">
                             <span>
-                                <i class='bx bx-data'></i>
+                                <i class='bx bxs-report' ></i>
                             </span>
                             <span class="hide-menu">Rekap Desa</span>
                         </a>
                         <a class="sidebar-link" href="{{ route('admin.ukm.laporankecamatan') }}" aria-expanded="false">
                             <span>
-                                <i class='bx bx-data'></i>
+                                <i class='bx bxs-report' ></i>
                             </span>
                             <span class="hide-menu">Rekam Kecamatan</span>
                         </a>
                         <a class="sidebar-link" href="{{ route('admin.ukm.laporankota') }}" aria-expanded="false">
                             <span>
-                                <i class='bx bx-data'></i>
+                                <i class='bx bxs-report' ></i>
                             </span>
                             <span class="hide-menu">Rekam Kota</span>
                         </a>

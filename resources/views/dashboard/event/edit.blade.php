@@ -19,6 +19,14 @@
                         <input type="hidden" id="deskripsi" name="deskripsi" value="{{ $event->deskripsi }}">
                         <trix-editor input="deskripsi"></trix-editor>
                     </div>
+                    <div class="mb-1">
+                        <label class="form-label">Tanggal Pelaksanaan</label>
+                        <input type="text" class="form-control" id="datepicker" name="tgl" value="{{ $event->tgl }}">
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Kuota</label>
+                        <input type="text" class="form-control" name="kuota" value="{{ $event->kuota }}">
+                    </div>
                     <hr>
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">Simpan</button>

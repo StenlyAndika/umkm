@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ukm;
 use App\Models\User;
+use App\Models\Produk;
+use App\Models\Pemilik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,10 +88,6 @@ class DashboardUser extends Controller
             'password' => 'required'
         ];
 
-        if ($request->username != auth()->user()->username) {
-            $rules['username'] = 'required|unique:user';
-        }
-
         $validatedData = $request->validate($rules);
 
         if($validatedData['password'] != auth()->user()->password) {
@@ -99,7 +98,7 @@ class DashboardUser extends Controller
         if($user->is_super) {
             return redirect()->route('admin.user.index')->with('toast_success', 'Data berhasil diupdate!');
         } else {
-            return redirect()->route('admin.dashboard')->with('toast_success', 'Data berhasil diupdate!');
+            return redirect()->route('admin.user.show', $user->id)->with('toast_success', 'Data berhasil diupdate!');
         }
     }
 
@@ -133,6 +132,15 @@ class DashboardUser extends Controller
      */
     public function destroy(User $user, Request $request)
     {
+        $nik = User::where('id', $user->id)->first();
+
+        $id_ukm = Ukm::where('nik', $nik->nik)->first();
+        Produk::where('id_ukm', $id_ukm->id_ukm)->delete();
+
+        Ukm::where('nik', $nik->nik)->delete();
+
+        Pemilik::where('nik', $nik->nik)->delete();
+
         User::destroy($user->id);
         if(auth()->user()->username == $user->username) {
             Auth::logout();

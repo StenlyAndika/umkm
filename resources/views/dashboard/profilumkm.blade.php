@@ -57,7 +57,13 @@
                     <div class="row mb-2">
                         <div class="col-lg-6">
                             <label class="form-label">Alamat Usaha</label>
-                            <input type="text" class="form-control" name="almt_usaha" value="{{ $ukm->almt_usaha }}">
+                            <select class="select2-bootstrap4 form-control bg-light fs-6" name="almt_usaha">
+                                <option value="0">Pilih</option>
+                                @foreach ($desa as $item)
+                                    <option value="{{ $item->id }}"
+                                        @if ($item->id == $ukm->almt_usaha) selected @endif>{{ $item->desa }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-lg-6">
                             <label class="form-label">Jumlah Tenaga Kerja</label>

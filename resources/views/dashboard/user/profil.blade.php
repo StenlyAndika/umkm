@@ -20,8 +20,17 @@
                         @enderror
                     </div>
                     <div class="form-floating mb-1">
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" value="{{ $user->password }}">
-                        <label for="password">Password</label>
+                        <input type="password" class="form-control @error('passwordlama') is-invalid @enderror" id="passwordlama" name="passwordlama" placeholder="Passwordlama" value="{{ $user->password }}">
+                        <label for="passwordlama">Password Lama</label>
+                        @error('passwordlama')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-1">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" value="">
+                        <label for="password">Password Baru</label>
                         @error('password')
                             <div class="invalid-feedback">
                                 {{ $message }}

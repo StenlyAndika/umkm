@@ -1,0 +1,44 @@
+a {
+	color: #000;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.ticker {
+	border-color: #004A99;
+	border-width: 2px;
+	padding: 80px 0 20px 0;
+}
+
+.news {
+	width: 80%;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 1px solid rgba(0,0,0,.125);
+	box-shadow: 0 7px 20px 0 rgba(0, 0, 0, 0.08);
+}
+
+.title {
+	width: 20%;
+	text-align: center;
+	background: #004A99;
+	position: relative;
+	background-clip: border-box;
+	border: 1px solid rgba(0,0,0,.125);
+	box-shadow: 0 7px 20px 0 rgba(0, 0, 0, 0.08);
+}
+
+.title h5 {
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+	margin: 6% 0;
+}
+
+.marquee {
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-top: 13px;
+    overflow: hidden;
+    color: rgb(202, 255, 195);
+}
