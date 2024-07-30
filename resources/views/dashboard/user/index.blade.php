@@ -5,6 +5,7 @@
         <div class="card">
             <div class="card-header border-start border-0 border-4 border-danger">
                 <h5 class="mt-2">Data User</h5>
+                <a href="{{ route('daftaradmin') }}" class="btn btn-sm btn-success">Data Baru</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -26,7 +27,7 @@
                                     @if ($row->is_super == 1)
                                         Super Admin
                                     @else
-                                        Admin
+                                        Petugas UKM
                                     @endif
                                 </td>
                                 <td>

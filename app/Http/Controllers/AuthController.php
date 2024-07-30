@@ -36,12 +36,13 @@ class AuthController extends Controller
         $validatedData = $request->validate($rules);
 
         $validatedData['password'] = bcrypt($validatedData['password']);
-        $validatedData['is_super'] = '1';
+        $validatedData['is_admin'] = '1';
+        $validatedData['is_super'] = '0';
         $validatedData['is_verified'] = '1';
 
         User::create($validatedData);
 
-        return redirect()->route('welcome')->with('toast_success', 'Berhasil mendaftar!');
+        return redirect()->route('admin.user.index')->with('toast_success', 'Admin didaftarkan!');
     }
 
     public function daftar() {
@@ -61,6 +62,18 @@ class AuthController extends Controller
             'kecamatan' => $kecamatan,
             'kelas_usaha' => KelasUsaha::getall()
         ]);
+    }
+
+    public function generateSuper() {
+        $validatedSuperAdmin['nik'] = '0';
+        $validatedSuperAdmin['username'] = 'admin';
+        $validatedSuperAdmin['password'] = bcrypt('admin');
+        $validatedSuperAdmin['is_admin'] = '1';
+        $validatedSuperAdmin['is_super'] = '1';
+        $validatedSuperAdmin['is_verified'] = '1';
+
+        User::create($validatedSuperAdmin);
+        return redirect()->route('login')->with('success', 'Super Admin didaftarkan!');
     }
 
     public function getdesa($kecamatan)
@@ -113,6 +126,9 @@ class AuthController extends Controller
         $validatedData = $request->validate($rules);
 
         $validatedData['password'] = bcrypt($validatedData['password']);
+        $validatedData['is_admin'] = '0';
+        $validatedData['is_super'] = '0';
+        $validatedData['is_verified'] = '0';
 
         User::create($validatedData);
 
@@ -136,7 +152,11 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)) {
             if(auth()->user()->is_verified == "1") {
                 $request->session()->regenerate();
-                return redirect()->intended('/dashboard')->with('toast_success', 'Login Berhasil<br>Selamat Datang '.ucfirst(auth()->user()->username));
+                if(auth()->user()->is_super == '1') {
+                    return redirect()->intended('/dashboard')->with('toast_success', 'Login Berhasil<br>Selamat Datang Kepala Dinas UMKM Kota Sungai Penuh');
+                } else {
+                    return redirect()->intended('/dashboard')->with('toast_success', 'Login Berhasil<br>Selamat Datang '.ucfirst(auth()->user()->username));
+                }
             } else {
                 Auth::logout();
                 $request->session()->invalidate();

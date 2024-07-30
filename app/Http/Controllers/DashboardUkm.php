@@ -15,7 +15,7 @@ class DashboardUkm extends Controller
     public function index()
     {
         return view('dashboard.ukm.index', [
-            'title' => 'Dashboard Admin',
+            'title' => 'Data UKM',
             'ukm' => Ukm::join('user', 'user.nik', '=', 'ukm.nik')
                         ->join('pemilik', 'pemilik.nik', '=', 'ukm.nik')
                         ->join('bidang_usaha', 'bidang_usaha.id_bdng_ush', '=', 'ukm.id_bdng_ush')

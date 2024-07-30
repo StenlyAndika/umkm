@@ -15,7 +15,7 @@ class DashboardInstansi extends Controller
     public function index()
     {
         return view('dashboard.instansi.index', [
-            'title' => 'Dashboard Instansi',
+            'title' => 'Profil Instansi',
             'instansi' => Instansi::first()
         ]);
     }

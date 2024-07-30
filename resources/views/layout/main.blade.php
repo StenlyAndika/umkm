@@ -60,7 +60,8 @@
     <script src="/vendor/aos/aos.js"></script>
     <script src="/vendor/marquee/jquery.marquee.min.js" type="text/javascript"></script>
     <script src="/vendor/animated-text/animated-text.js"></script>
-
+    <script src="/js/main.js"></script>
+    
     @include('sweetalert::alert')
 
     <script>

@@ -26,7 +26,7 @@ class DashboardDesa extends Controller
         ];
 
         return view('dashboard.desa.index', [
-            'title' => 'Desa',
+            'title' => 'Data Desa',
             'kecamatan' => $kecamatan,
             'desa' => Desa::all()
         ]);

@@ -25,7 +25,7 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                @cannot('super')
+                @cannot('admin', 'super')
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.produk.index') }}" aria-expanded="false">
                             <span>
@@ -55,7 +55,8 @@
                         </a>
                     </li>
                 @endcannot
-                @can('super')
+                @can('admin')
+                    @cannot('super')
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.ukm.index') }}" aria-expanded="false">
                             <span>
@@ -93,14 +94,6 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.user.index') }}" aria-expanded="false">
-                            <span>
-                                <i class='bx bxs-user-rectangle' ></i>
-                            </span>
-                            <span class="hide-menu">User</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.desa.index') }}" aria-expanded="false">
                             <span>
                                 <i class='bx bxs-building-house'></i>
@@ -129,13 +122,52 @@
                             <span>
                                 <i class='bx bxs-report' ></i>
                             </span>
-                            <span class="hide-menu">Rekam Kecamatan</span>
+                            <span class="hide-menu">Rekap Kecamatan</span>
                         </a>
                         <a class="sidebar-link" href="{{ route('admin.ukm.laporankota') }}" aria-expanded="false">
                             <span>
                                 <i class='bx bxs-report' ></i>
                             </span>
-                            <span class="hide-menu">Rekam Kota</span>
+                            <span class="hide-menu">Rekap Kota</span>
+                        </a>
+                    </li>
+                    @endcannot
+                @endcan
+                @can('super')
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Data Master</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.user.index') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bxs-user-rectangle' ></i>
+                            </span>
+                            <span class="hide-menu">User</span>
+                        </a>
+                    </li>
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Laporan</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.ukm.laporan') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bxs-report' ></i>
+                            </span>
+                            <span class="hide-menu">Rekap Desa</span>
+                        </a>
+                        <a class="sidebar-link" href="{{ route('admin.ukm.laporankecamatan') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bxs-report' ></i>
+                            </span>
+                            <span class="hide-menu">Rekap Kecamatan</span>
+                        </a>
+                        <a class="sidebar-link" href="{{ route('admin.ukm.laporankota') }}" aria-expanded="false">
+                            <span>
+                                <i class='bx bxs-report' ></i>
+                            </span>
+                            <span class="hide-menu">Rekap Kota</span>
                         </a>
                     </li>
                 @endcan

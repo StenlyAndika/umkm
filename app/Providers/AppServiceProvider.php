@@ -44,5 +44,9 @@ class AppServiceProvider extends ServiceProvider
             return $user->is_verified;
         });
 
+        Gate::define('checksuper', function ($user = null) {
+            return !User::where('is_super', '1')->exists();
+        });
+
     }
 }

@@ -20,7 +20,7 @@ class DashboardUser extends Controller
     {
         return view('dashboard.user.index', [
             'title' => 'Data User',
-            'user' => User::where('is_super', '0')->get()
+            'user' => User::where('is_admin', '1')->where('is_super', '0')->get()
         ]);
     }
 

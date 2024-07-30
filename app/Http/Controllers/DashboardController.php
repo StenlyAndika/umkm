@@ -16,16 +16,23 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        if(auth()->user()->is_super == "1") {
+        if(auth()->user()->is_admin == "1" && auth()->user()->is_super == "1") {
             return view('dashboard.index', [
-                'title' => 'Dashboard Super Admin',
+                'title' => 'Dashboard Kepala Dinas',
+                'tukm' => Ukm::join('user', 'user.nik', 'ukm.nik')
+                            ->where('user.is_verified', '1')
+                            ->count()
+            ]);
+        } else if(auth()->user()->is_admin == "1" && auth()->user()->is_super == "0") {
+            return view('dashboard.index', [
+                'title' => 'Dashboard Petugas',
                 'tukm' => Ukm::join('user', 'user.nik', 'ukm.nik')
                             ->where('user.is_verified', '1')
                             ->count()
             ]);
         } else {
             return view('dashboard.home', [
-                'title' => 'Dashboard Admin',
+                'title' => 'Dashboard',
                 'event' => Event::orderBy('created_at', 'desc')->get(),
                 'ukm' => Ukm::where('nik', auth()->user()->nik)->first()
             ]);
@@ -89,7 +96,7 @@ class DashboardController extends Controller
 
         $ukm = $query->get();
         return view('dashboard.ukm.laporan', [
-            'title' => 'Dashboard Admin',
+            'title' => 'Laporan Rekap Desa',
             'desa' => Desa::all(),
             'bidang_usaha' => BidangUsaha::all(),
             'ukm' => $ukm,
@@ -153,7 +160,7 @@ class DashboardController extends Controller
         $ukm = $query->get();
 
         return view('dashboard.ukm.laporankecamatan', [
-            'title' => 'Dashboard Admin',
+            'title' => 'Laporan Rekap Kecamatan',
             'ukm' => $ukm,
             'filter' => $filter
         ]);
@@ -203,7 +210,7 @@ class DashboardController extends Controller
         $ukm = $query->get();
 
         return view('dashboard.ukm.laporankota', [
-            'title' => 'Dashboard Admin',
+            'title' => 'Laporan Rekap Kota',
             'ukm' => $ukm
         ]);
     }
